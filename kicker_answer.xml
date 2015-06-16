@@ -30,7 +30,7 @@
 	VR.r.addChild(k)
 	
 	b = k.find('Ball0')
-	b.translate(0,0,0.4)
+	b.setFrom(0,0,1.3)
 	f = k.find('Feld0')
 	ka = k.find('Kasten0')
 	
@@ -81,24 +81,36 @@
 </core>
       <trig type="on_scene_load" dev="" state="Pressed" param="" key="0" name_suffix="0" base_name="trigger" name_space="__global__"/>
     </Script>
-    <Script name_suffix="0" base_name="mouse" name_space="__script__" type="Python" mobile="">
+    <Script name_suffix="0" base_name="klick" name_space="__script__" type="Python" mobile="">
       <core>
-	dev.intersect()
 	i = dev.getIntersected()
-	k = dev.getKey()
-	n = dev.getIntersectionNormal()
 	
-	if not i:
-		return
+	p = i.getWorldFrom()
+	pi = dev.getIntersection()
 	
-	name = i.getName()
-	print n
+	s = 50
+	n = [s*p[0]-s*pi[0],0,s*p[2]-s*pi[2]]
 	
-	if k == 1:
-		print 'apply'
-		i.applyImpulse(n[0],0,n[2])
+	if i.getName() == 'Ball0':
+		i.applyImpulse(n)
 </core>
-      <trig type="on_device" dev="mouse" state="Pressed" param="" key="-1" name_suffix="1" base_name="trigger" name_space="__global__"/>
+      <trig type="on_device" dev="mouse" state="Pressed" param="" key="0" name_suffix="1" base_name="trigger" name_space="__global__"/>
+    </Script>
+    <Script name_suffix="0" base_name="reset" name_space="__script__" type="Python" mobile="">
+      <core>
+	import VR
+	
+	b = VR.getRoot().find('Ball0')
+	
+	b.physicalize(0,0,0)
+	b.setFrom(0,0,1.3)
+	b.physicalize(1,1,0)
+	b.setPhysicsActivationMode(4)
+	b.setCollisionShape('Sphere', 0.02)
+	
+	
+</core>
+      <trig type="on_device" dev="keyboard" state="Pressed" param="" key="114" name_suffix="2" base_name="trigger" name_space="__global__"/>
     </Script>
   </Scripts>
   <Sockets/>
