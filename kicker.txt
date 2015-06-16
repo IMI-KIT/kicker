@@ -1,0 +1,75 @@
+
+
+
+Tasks
+
+1) Create a ground
+
+2) Import 'kicker.dae' and append it to the Headlight.
+
+3) Physicalize objects:
+	- 'Ball', sphere collision shape
+	- 'Kasten', concave collision shape
+	- 'Feld', concave collision shape
+
+4) Physikalize the kicker arms R1,R2,R3,R4 and L1,L2,L3,L4.
+   Constrain the arms to the 'Kasten', allow a rotation DoF around the arm axis.
+   Apply torque to arms by clicking on them.
+
+5) Physikalize the L players M1L1, M1L2, M1L3, M1L4, M2L2, M2L3, M2L4, M3L3, M3L4, M4L3, M5L3.
+   Physikalize the R players M1R1, M1R2, M1R3, M1R4, M2R2, M2R3, M2R4, M3R3, M3R4, M4R3, M5R3.
+   Constrain the players to their respective arm.
+
+6) Play!
+
+
+
+Hints
+
+1) to get the headlight you can do:
+
+	r = VR.getRoot().find('Headlight')
+
+   the ground is a box primitive:
+
+	p = VR.Geometry('ground')
+	p.setPrimitive('Box 10 0.1 10 1 1 1')
+	r.addChild(p)
+
+
+2) Import a geometry with:
+
+	k = VR.loadGeometry('data/kicker.dae')
+	r.addChild(k)
+
+   Transform the kicker with:
+
+	k.setPose([0,0,0],[0,-1,0],[0,0,1])
+
+
+3) You can access objects from the kicker with:
+
+	b = k.find('Ball')
+
+   Physicalize objects with:
+
+	b.physicalize(True, True, False) 
+	# first parameter physicalises the object, 
+	# the second defines if the object is dynamic or static 
+	# the third parameter defines if the shape is convex or concave
+
+   Set the collision margin with:
+	
+	b.setCollisionMargin(0.01)
+
+   Set a sphere collision shape:
+
+	b.setCollisionShape('Sphere', 0.02)
+
+
+4) Add a constraint with:
+
+	c = VR.Constraint() # constraint
+	cs = VR.Constraint() # spring constraint
+	c.free([5])
+	k.attach(l1,c,cs)
