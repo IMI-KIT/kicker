@@ -4,7 +4,7 @@
     <Object name_suffix="0" base_name="Root" name_space="__global__" type="Object" pickable="0" visible="1">
       <Object name_suffix="0" base_name="Headlight" name_space="__global__" type="Light" pickable="0" visible="1" ambient="0.330648 0.330648 0.330648 1" beacon="Headlight_beacon" diffuse="1 1 1 1" lightType="point" on="1" shadow="1" shadowColor="0.548394 0.548394 0.548394 1" shadowType="4096" specular="0.1 0.1 0.1 1">
         <Object name_suffix="0" base_name="Headlight_beacon" name_space="__global__" type="LightBeacon" pickable="0" visible="1" from="1 10 1" at="1 9 1" up="1 0 0" scale="1 1 1" cT="0 1 0" cR="0 0 0" do_cT="0" do_cR="0" cT_mode="1" at_dir="1" light="Headlight"/>
-        <Object name_suffix="0" base_name="Default" name_space="__global__" type="Camera" pickable="0" visible="1" from="0.121806 1.64945 -0.523961" at="-0.0471636 0.762681 0.0435584" up="0 1 0" scale="1 1 1" cT="0 1 0" cR="0 0 0" do_cT="0" do_cR="0" cT_mode="1" at_dir="0" accept_root="1" near="0.1" far="250" aspect="1" fov="1.0472"/>
+        <Object name_suffix="0" base_name="Default" name_space="__global__" type="Camera" pickable="0" visible="1" from="-0.367807 1.6132 -0.513934" at="-0.0471636 0.762681 0.0435584" up="0 1 0" scale="1 1 1" cT="0 1 0" cR="0 0 0" do_cT="0" do_cR="0" cT_mode="1" at_dir="0" accept_root="1" near="0.1" far="250" aspect="1" fov="1.0472"/>
       </Object>
     </Object>
   </Objects>
@@ -70,6 +70,7 @@
 			a.setCollisionGroup(7)
 			a.setCollisionMargin(0.01)
 			a.setGravity(0,0,0)
+			a.setPhysicsActivationMode(4)
 			a.physicalize(True, True, False)
 			
 			c = VR.Constraint()
@@ -138,11 +139,11 @@
 		
 	if k == 1 and name[0] == 'R':
 		print 'R'
-		i.applyTorque(0,0,-10)
+		i.applyTorqueImpulse(0,0,-0.2)
 		
 	if k == 1 and name[0] == 'L':
 		print 'L'
-		i.applyTorque(0,0,10)
+		i.applyTorqueImpulse(0,0,0.2)
 </core>
       <trig type="on_device" dev="mouse" state="Pressed" param="" key="-1" name_suffix="1" base_name="trigger" name_space="__global__"/>
     </Script>
